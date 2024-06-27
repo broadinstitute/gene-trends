@@ -1,0 +1,8 @@
+env
+data/tmp
+gene_trends/__pycache__
+gene_trends/views/__pycache__/*
+gene_trends/citations/__pycache__
+pubmed_citations
+gene_trends/.DS_Store
+.DS_Store
