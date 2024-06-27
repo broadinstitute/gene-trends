@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/ideogram@1.45.1/dist/js/ideogram.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.33.0/plotly.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/react-table@7.8.0/dist/react-table.production.min.js"></script> -->
+  </head>
+  <body>
+    <input id="gene-search-box" type="text" />
+    <div id="trends-ideogram">Ideogram here</div>
+    <div id="table-container">Table here</div>
+    <div id="line-chart-container">Line chart here</div>
+  </body>
+  <script>
+
+    /** Upon clicking a triangular annotation or tooltip, plot that gene */
+    function onClickAnnot(annot) {
+      // document.querySelector('#search-genes').value = annot.name;
+      // urlParams['q'] = annot.name;
+      // updateUrl();
+
+      ideogram.config.relatedGenesMode = 'related';
+      // const selector = '#ideogram-container #_ideogramInnerWrap'
+      ideogram.plotRelatedGenes(annot.name);
+    }
+
+    const defaultIdeoConfig = {
+      container: '#trends-ideogram',
+      organism: 'homo-sapiens',
+      chrWidth: 9,
+      chrHeight: 100,
+      chrLabelSize: 12,
+      annotationHeight: 7,
+      // onClickAnnot,
+      // onPlotRelatedGenes,
+      // onWillShowAnnotTooltip,
+      showGeneStructureInTooltip: true,
+      showProteinInTooltip: true,
+      showParalogNeighborhoods: true,
+      onLoad() {
+
+        const mw = document.querySelector('#_ideogramMiddleWrap')
+        mw.style.width = '1200px';
+
+        const iw = document.querySelector('#_ideogramInnerWrap')
+        iw.style.maxWidth = null;
+
+        const ideoEl = document.querySelector('#_ideogram')
+        ideoEl.style.left = '170px';
+
+        const trendsEl = document.querySelector('#trends-ideogram')
+        trendsEl.style.position = null;
+
+        // Handles edge case: when organism lacks chromosome-level assembly
+        // if (!genomeHasChromosomes()) {return}
+        // this.plotRelatedGenes(gene)
+        // showRelatedGenesIdeogram(target)
+
+        ideogram.plotRelatedGenes('TP53');
+      }
+    }
+
+    let ideogram = Ideogram.initRelatedGenes(defaultIdeoConfig)
+  </script>
+</html>
