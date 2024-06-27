@@ -5,9 +5,9 @@ import argparse
 
 from citations.citations import Citations
 from views.dailyviews import DailyViews
-from merge_hints import merge_hints
+from merge_trends import merge_trends
 
-class GeneHints():
+class GeneTrends():
     def __init__(
         self, days, hours_per_day, sort_by="count", only=None,
         debug=0
@@ -39,13 +39,13 @@ class GeneHints():
         stem = "data/homo-sapiens-"
         cite_path = f"{stem}pubmed-citations.tsv"
         view_path = f"{stem}wikipedia-views.tsv"
-        hint_path = f"{stem}gene-trends.tsv"
-        merge_hints(cite_path, view_path, hint_path)
+        trends_path = f"{stem}gene-trends.tsv"
+        merge_trends(cite_path, view_path, trends_path)
 
 # Command-line handler
 if __name__ == "__main__":
     usage = """
-    python3 gene_hints/gene_hints.py --days 365
+    python3 gene_trends/gene_trends.py --days 365
     python3 gene_trends/gene_trends.py --days 5 --hours-per-day 24 --only citations --sort-by count
     """
     parser = argparse.ArgumentParser(
@@ -105,4 +105,4 @@ if __name__ == "__main__":
     only = args.only
     debug = args.debug
 
-    GeneHints(days, hours_per_day, sort_by, only, debug).run()
+    GeneTrends(days, hours_per_day, sort_by, only, debug).run()
