@@ -5,7 +5,6 @@ import TrendsDashboard from './components/TrendsDashboard';
 
 function App() {
   const env = process.env.REACT_APP_ENV;
-  console.log(env)
   return (
     <TrendsDashboard/>
   );
