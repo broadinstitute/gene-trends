@@ -19,6 +19,8 @@ export default function TrendsForm({callback, geneSymbols, geneInfoMap}: Props) 
                     options={geneSymbols}
                     value={selectedGene}
                     onChange={(event, newValue) => {
+                        console.log('newValue')
+                        console.log(newValue)
                         if (newValue === null) return
                         setSelectedGene(newValue);
                         callback(newValue);
