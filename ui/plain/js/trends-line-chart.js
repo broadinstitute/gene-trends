@@ -43,8 +43,7 @@ async function fetchCounts(gene, source) {
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i].split('\t')
     const [date, count] = row
-    if (!count || Number.isNaN(count)) continue // Skip e.g. header
-    console.log('Number.isNaN(count)', Number.isNaN(count))
+    if (!count || isNaN(count)) continue // Skip e.g. header
     xyObject.x.push(date) // Time, e.g. "2020-01-15"
     xyObject.y.push(count) // Popularity / interest value -- an integer
   }
