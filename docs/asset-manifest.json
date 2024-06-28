@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "https://bioithackathons.github.io/Gene-Trends/static/css/main.520c9bca.css",
-    "main.js": "https://bioithackathons.github.io/Gene-Trends/static/js/main.a478b91c.js",
-    "static/js/787.c1112931.chunk.js": "https://bioithackathons.github.io/Gene-Trends/static/js/787.c1112931.chunk.js",
-    "index.html": "https://bioithackathons.github.io/Gene-Trends/index.html",
-    "main.520c9bca.css.map": "https://bioithackathons.github.io/Gene-Trends/static/css/main.520c9bca.css.map",
-    "main.a478b91c.js.map": "https://bioithackathons.github.io/Gene-Trends/static/js/main.a478b91c.js.map",
-    "787.c1112931.chunk.js.map": "https://bioithackathons.github.io/Gene-Trends/static/js/787.c1112931.chunk.js.map"
+    "main.css": "https://broadinstitute.github.io/gene-trends/static/css/main.520c9bca.css",
+    "main.js": "https://broadinstitute.github.io/gene-trends/static/js/main.0ab67729.js",
+    "static/js/787.c1112931.chunk.js": "https://broadinstitute.github.io/gene-trends/static/js/787.c1112931.chunk.js",
+    "index.html": "https://broadinstitute.github.io/gene-trends/index.html",
+    "main.520c9bca.css.map": "https://broadinstitute.github.io/gene-trends/static/css/main.520c9bca.css.map",
+    "main.0ab67729.js.map": "https://broadinstitute.github.io/gene-trends/static/js/main.0ab67729.js.map",
+    "787.c1112931.chunk.js.map": "https://broadinstitute.github.io/gene-trends/static/js/787.c1112931.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.520c9bca.css",
-    "static/js/main.a478b91c.js"
+    "static/js/main.0ab67729.js"
   ]
 }
