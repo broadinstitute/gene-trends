@@ -28,7 +28,7 @@ export default function TrendsTimeline({gene}: Props) {
       };
 
       fetchData();
-    }, []);
+    }, [gene]);
 
   let colorTheme = schemeTableau10;
 
