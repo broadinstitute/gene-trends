@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <script src="js/vendor/ideogram.min.js"></script>
+    <script src="js/vendor/plotly.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/react-table@7.8.0/dist/react-table.production.min.js"></script> -->
+    <script src="js/trends-ideogram.js"></script>
+    <script src="js/trends-line-chart.js"></script>
+    <script>
+      defaultGene = 'ACE2'
+    </script>
+    <style>
+      body {font: 14px Arial}
+      #gene-search-box {width: 210px;}
+      #ideogram-container {margin-left: calc(100% - 1000px);}
+      #line-chart-container {margin-top: 200px;}
+      a, a:visited {
+        text-decoration: none;
+        color: #0366d6;
+      }
+    </style>
+  </head>
+  <body>
+    <input id="gene-search-box" type="text" placeholder="Search a gene (e.g. TP53, ACE2)"/>
+    <div id="ideogram-container"></div>
+    <div id="line-chart-container"></div>
+  </body>
+  <script src="js/trends-ideogram.js"></script>
+  <script src="js/trends-line-chart.js"></script>
+</html>
