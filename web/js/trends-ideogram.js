@@ -9,6 +9,20 @@ function onClickAnnot(annot) {
   ideogram.plotRelatedGenes(annot.name);
 }
 
+function styleIdeogram() {
+  const mw = document.querySelector('#_ideogramMiddleWrap')
+  mw.style.width = '950px';
+
+  const iw = document.querySelector('#_ideogramInnerWrap')
+  iw.style.maxWidth = null;
+
+  const ideoEl = document.querySelector('#_ideogram')
+  ideoEl.style.left = '170px';
+
+  const trendsEl = document.querySelector('#ideogram-container')
+  trendsEl.style.position = null;
+}
+
 function addTrendsIdeogram() {
   const trendsIdeoConfig = {
     container: '#ideogram-container',
@@ -24,25 +38,14 @@ function addTrendsIdeogram() {
     showProteinInTooltip: true,
     showParalogNeighborhoods: true,
     onLoad() {
-
-      const mw = document.querySelector('#_ideogramMiddleWrap')
-      mw.style.width = '950px';
-
-      const iw = document.querySelector('#_ideogramInnerWrap')
-      iw.style.maxWidth = null;
-
-      const ideoEl = document.querySelector('#_ideogram')
-      ideoEl.style.left = '170px';
-
-      const trendsEl = document.querySelector('#ideogram-container')
-      trendsEl.style.position = null;
+      styleIdeogram()
 
       // Handles edge case: when organism lacks chromosome-level assembly
       // if (!genomeHasChromosomes()) {return}
       // this.plotRelatedGenes(gene)
       // showRelatedGenesIdeogram(target)
 
-      ideogram.plotRelatedGenes('TP53');
+      ideogram.plotRelatedGenes(defaultGene);
     }
   }
 
