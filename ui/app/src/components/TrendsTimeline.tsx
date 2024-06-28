@@ -1,6 +1,6 @@
 
 import { randomNormal, randomUniform, range, schemeTableau10 } from 'd3'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
 import { genericType } from '../utils/dataUtils'
 
@@ -16,10 +16,30 @@ const dateFormatter = (time: string | number): string => {
   return `${month} ${day} ${year}`;
 };
 
-export default async function TrendsTimeline({gene}: Props) {
+export default function TrendsTimeline({gene}: Props) {
+  const [vizData, setVizData] = useState<any | null>(null)
   // let vizData = randomDataGenerator(gene)
-  let vizData = await fetchCounts(gene)
+
+  useEffect(() => {
+      const fetchData = async () => {
+        const counts = await fetchCounts(gene, 'cites')
+        // const counts = randomDataGenerator(gene)
+        setVizData(counts);
+      };
+
+      fetchData();
+    }, []);
+
   let colorTheme = schemeTableau10;
+
+  if (!vizData) {
+    return <></>
+  }
+
+  console.log('rendering')
+  console.log('rendering, vizData')
+  console.log(vizData)
+
   return (
     <LineChart width={700} height={400} data={vizData}>
       <CartesianGrid strokeDasharray="3 3" />
@@ -40,10 +60,12 @@ export default async function TrendsTimeline({gene}: Props) {
  * @param {String} source: either "views" or "cites"
  * @returns {Array} dateCounts
  */
-async function fetchCounts(gene:string, source) {
+async function fetchCounts(gene: string, source: string) {
   // E.g. data/views/ACE2.tsv
-  gene = 'ACE2'
-  const url = `gene_files_datesorted/${gene}_sorted.tsv`
+  // gene = 'ACE2'
+  const baseUrl = 'https://raw.githubusercontent.com/broadinstitute/gene-trends/main/gene_files/gene_files_datesorted/'
+  const url = `${baseUrl}${gene}_sorted.tsv`
+  // const url = `gene_files/gene_files_datesorted/${gene}_sorted.tsv`
   const response = await fetch(url)
   const text = await response.text()
   const dateCounts = []
@@ -61,6 +83,8 @@ async function fetchCounts(gene:string, source) {
     dateCounts.push(dateCount)
 
   }
+  console.log('dateCounts')
+  console.log(dateCounts)
   return dateCounts
 }
 
