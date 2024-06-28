@@ -1,12 +1,16 @@
+#trends-ideogram {
+    position: unset !important;
+}
+
 #_ideogram {
  position: relative;
  left: 100px;
 }
 
 #_ideogramMiddleWrap {
-  width: 1200px;
+  width: 100%;
 }
 
 #_ideogramInnerWrap {
-  width: 1200px;
+  width: 100%;
 }
