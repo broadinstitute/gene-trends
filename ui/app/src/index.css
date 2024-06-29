@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#trends-ideogram {font: 14px Arial}
+#trends-ideogram a, #trends-ideogram a:visited {
+  text-decoration: none;
+  color: #0366d6;
+}
