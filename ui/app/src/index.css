@@ -17,3 +17,10 @@ code {
   text-decoration: none;
   color: #0366d6;
 }
+
+.gene-trends.light-card {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  box-shadow: none;
+}

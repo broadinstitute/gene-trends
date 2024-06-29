@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import { makeStyles } from "@material-ui/core/styles";
 import TrendsForm from './TrendsForm'
 import {descending, tsv} from 'd3';
 import TrendsTable from './TrendsTable';
@@ -26,45 +27,42 @@ export default function TrendsDashboard() {
         })
     }, [])
 
-    const callback = (gene: string) => {
+    function updateSelectedGene(gene: string) {
+        console.log('in updateSelectedGene')
         setSelectedGene(gene);
         console.log(gene, geneWikiMap.get(gene))
     }
     return (
-        <Container fixed>
-            <Box sx={{ my: 3 }}>
+        <Container fixed style={{maxWidth: '1400px'}}>
                 <Typography variant="h3" gutterBottom>
-                    Gene Trends Dashboard
-                </Typography>
-                <hr/>
-                <Typography variant="h5" sx={{color: 'grey'}} gutterBottom>
-                    The popularity of genes over time can tell the story of society's focus on biomedicine and genomics.
+                    Gene Trends
+                    <Typography variant="h5" sx={{color: 'grey', display: 'inline', marginLeft: '40px'}} gutterBottom>
+                    Explore scholarly and general interest in genes over time
                     <br/>
                 </Typography>
-            </Box>
+                </Typography>
+                <hr/>
 
-            <Card variant="outlined" sx={{ my: 5 }}>
+            <Card className={'gene-trends light-card'} variant="outlined" sx={{ my: 5 }} style={{float: 'left'}}>
                 <CardContent>
-                    <Typography sx={{ py: 1 }} gutterBottom>
-                        Select a gene you are interested in learning more about from the dropdown below:
-                    </Typography>
-                    <TrendsForm callback={callback} geneSymbols={geneSymbols} geneInfoMap={geneWikiMap}/>
+                    Search gene, find popularity metrics<br/><br/>
+                    <TrendsForm callback={updateSelectedGene} geneSymbols={geneSymbols} geneInfoMap={geneWikiMap}/>
                 </CardContent>
             </Card>
 
-            <Card variant="outlined" sx={{ my: 5, overflowX: 'clip' }}>
+            <Card className={'gene-trends light-card'} variant="outlined" sx={{ my: 5, overflowX: 'clip'}}>
                     <Box component="div"
                          sx={{py: 3}}
                          id="trends-ideogram"
                     />
-                    {selectedGene !== undefined &&
-                        <TrendsIdeogram gene={selectedGene}/>
+                    {selectedGene &&
+                        <TrendsIdeogram gene={selectedGene} updateSelectedGene={updateSelectedGene}/>
                     }
             </Card>
 
             <Card variant="outlined" sx={{ my: 5, overflowX: 'clip' }}>
                 <CardContent>
-                    {selectedGene !== undefined &&
+                    {selectedGene &&
                         <TrendsTimeline gene={selectedGene}/>
                     }
 
