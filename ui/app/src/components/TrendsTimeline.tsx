@@ -20,6 +20,8 @@ export default function TrendsTimeline({gene}: Props) {
   const [vizData, setVizData] = useState<any | null>(null)
   // let vizData = randomDataGenerator(gene)
 
+  console.log('in TrendsTimeline, gene:')
+  console.log(gene)
   useEffect(() => {
       const fetchData = async () => {
         const counts = await fetchCounts(gene, 'cites')
@@ -36,12 +38,8 @@ export default function TrendsTimeline({gene}: Props) {
     return <></>
   }
 
-  console.log('rendering')
-  console.log('rendering, vizData')
-  console.log(vizData)
-
   return (
-    <LineChart width={700} height={400} data={vizData}>
+    <LineChart width={1000} height={400} data={vizData}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="date" tickFormatter={dateFormatter}/>
       <YAxis/>
@@ -73,7 +71,6 @@ async function fetchCounts(gene: string, source: string) {
 
   for (let i = 1; i < rows.length - 1; i++) {
     const row = rows[i].split('\t')
-    console.log('row', row)
     const [_, rawDate, count] = row
     const date = new Date(rawDate)
     const data = {date}
@@ -82,35 +79,6 @@ async function fetchCounts(gene: string, source: string) {
     const dateCount = Object.assign({}, data, countByGene)
     dateCounts.push(dateCount)
   }
-  console.log('dateCounts')
-  console.log(dateCounts)
+
   return dateCounts
-}
-
-function randomDataGenerator(selectedGene:string){
-  let randomData:any[] = [];
-
-  const startDate = new Date('2022-11-01');
-  const endDate = new Date();
-  const millisecondsPerDay: number = 1000 * 60 * 60 * 24;
-
-  const days = Math.floor((endDate.getTime() - startDate.getTime()) / millisecondsPerDay);
-  let date = startDate;
-
-  range(days-1).forEach((day)=>{
-    // console.log(date.getDate())
-    let theDate = new Date(date.toDateString())
-    let data = {
-      date: theDate
-    }
-    let geneData:genericType = {}
-    let seed = randomUniform(10, 100)();
-    geneData[selectedGene] = Math.round(randomNormal(seed, seed*0.1)())
-    randomData.push(Object.assign({}, data, geneData))
-    date.setDate(date.getDate() + 1);
-
-  })
-
-  console.log(randomData)
-  return randomData
 }

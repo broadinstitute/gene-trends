@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#trends-ideogram {font: 14px Arial}
+#trends-ideogram a, #trends-ideogram a:visited {
+  text-decoration: none;
+  color: #0366d6;
+}
+
+.gene-trends.light-card {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  box-shadow: none;
+}
