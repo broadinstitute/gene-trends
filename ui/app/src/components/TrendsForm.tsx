@@ -19,8 +19,6 @@ export default function TrendsForm({callback, geneSymbols, geneInfoMap}: Props) 
                     options={geneSymbols}
                     value={selectedGene}
                     onChange={(event, newValue) => {
-                        console.log('newValue')
-                        console.log(newValue)
                         if (newValue === null) return
                         setSelectedGene(newValue);
                         callback(newValue);
@@ -30,7 +28,7 @@ export default function TrendsForm({callback, geneSymbols, geneInfoMap}: Props) 
                             {...params}
                             variant="outlined"
                             label="Genes"
-                            placeholder="select"
+                            placeholder="Search or select"
                             style={{minWidth: "315px", width: "100%"}}
                         />
                     )}

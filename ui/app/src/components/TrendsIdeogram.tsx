@@ -3,11 +3,13 @@ import Ideogram from 'ideogram';
 
 type Props = {
   gene: string; // a gene symbol
-  updateSelectedGene: Function
+  updateSelectedGene: Function,
+  ideogram: any,
+  setIdeogram: Function
 }
 
 
-export default function TrendsIdeogram({gene, updateSelectedGene}: Props) {
+export default function TrendsIdeogram({gene, updateSelectedGene, ideogram, setIdeogram}: Props) {
 
   /** Handle clicks on Ideogram annotations */
   function onClickAnnot(this: any, annot: any) {
@@ -19,15 +21,9 @@ export default function TrendsIdeogram({gene, updateSelectedGene}: Props) {
   }
 
   useEffect(() => {
-    if (staticIdeogram) {
-      staticIdeogram.plotRelatedGenes(gene)
-    } else {
-      staticIdeogram = ideogram
-      setTimeout(function() {
-        staticIdeogram.plotRelatedGenes(gene)
-      }, 2000)
+    if (ideogram) {
+      ideogram.plotRelatedGenes(gene)
     }
-
   }, [gene])
 
   const defaultIdeoConfig = {
@@ -57,16 +53,19 @@ export default function TrendsIdeogram({gene, updateSelectedGene}: Props) {
       const trendsEl : any = document.querySelector('#trends-ideogram')
       trendsEl.style.position = null;
 
+      setIdeogram(this)
+
       // Handles edge case: when organism lacks chromosome-level assembly
       // if (!genomeHasChromosomes()) {return}
-      // this.plotRelatedGenes(gene)
+      const ideo: any = this // eslint-disable-line
+      ideo.plotRelatedGenes(gene)
       // showRelatedGenesIdeogram(target)
     }
   }
 
-  let staticIdeogram: any = null;
-
-  let ideogram = Ideogram.initRelatedGenes(defaultIdeoConfig)
+  if (!ideogram) {
+    Ideogram.initRelatedGenes(defaultIdeoConfig)
+  }
 
   return (
     <>

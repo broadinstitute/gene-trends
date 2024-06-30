@@ -12,6 +12,8 @@ export default function TrendsDashboard() {
     const [geneSymbols, setGeneSymbols] = useState<string[]>([]);
     const [selectedGene, setSelectedGene] = useState<string>();
     const [geneData, setGeneData] = useState<geneHintType[]>([]);
+    const [ideogram, setIdeogram] = useState(false)
+
     useEffect(() => {
         const promises = [
             tsv('data/gene_page_map.tsv'), // from wiki
@@ -56,7 +58,12 @@ export default function TrendsDashboard() {
                          id="trends-ideogram"
                     />
                     {selectedGene &&
-                        <TrendsIdeogram gene={selectedGene} updateSelectedGene={updateSelectedGene}/>
+                        <TrendsIdeogram
+                          gene={selectedGene}
+                          updateSelectedGene={updateSelectedGene}
+                          ideogram={ideogram}
+                          setIdeogram={setIdeogram}
+                        />
                     }
             </Card>
 
@@ -65,11 +72,6 @@ export default function TrendsDashboard() {
                     {selectedGene &&
                         <TrendsTimeline gene={selectedGene}/>
                     }
-
-                    <Typography gutterBottom>
-                        Longitudinal data exists for each gene: PubMed has publication citation counts and Wikipedia has
-                        page view counts.
-                    </Typography>
                 </CardContent>
             </Card>
 
