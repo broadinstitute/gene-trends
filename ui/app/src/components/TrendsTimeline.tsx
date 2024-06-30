@@ -37,7 +37,7 @@ async function addLineChart(gene: string) {
   var data = [viewsTrace, citesTrace];
 
   var layout = {
-    title: `Interest over time: ${gene}`
+    title: `Interest over time for gene: ${gene}`
   };
 
   Plotly.newPlot('line-chart-container', data as any, layout);

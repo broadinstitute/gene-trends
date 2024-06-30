@@ -27,3 +27,7 @@
   border: none;
   box-shadow: none;
 }
+
+iframe#webpack-dev-server-client-overlay {
+  display: none;
+}
