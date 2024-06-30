@@ -65,11 +65,6 @@ export default function TrendsDashboard() {
                     {selectedGene &&
                         <TrendsTimeline gene={selectedGene}/>
                     }
-
-                    <Typography gutterBottom>
-                        Longitudinal data exists for each gene: PubMed has publication citation counts and Wikipedia has
-                        page view counts.
-                    </Typography>
                 </CardContent>
             </Card>
 

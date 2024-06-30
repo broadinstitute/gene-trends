@@ -1,85 +1,84 @@
 
-import { randomNormal, randomUniform, range, schemeTableau10 } from 'd3'
 import React, {useState, useEffect} from 'react'
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
-import { genericType } from '../utils/dataUtils'
+import * as Plotly from 'plotly.js-dist-min'
 
 type Props = {
-  gene:string // a gene symbol
+  gene: string // a gene symbol, e.g. "ACE2"
 }
 
-const dateFormatter = (time: string | number): string => {
-  const date = new Date(time);
-  const month = date.toLocaleString('en-US', { month: 'short' });
-  const day = date.getDate();
-  const year = date.getFullYear();
-  return `${month} ${day} ${year}`;
-};
-
 export default function TrendsTimeline({gene}: Props) {
-  const [vizData, setVizData] = useState<any | null>(null)
-  // let vizData = randomDataGenerator(gene)
-
-  console.log('in TrendsTimeline, gene:')
-  console.log(gene)
   useEffect(() => {
-      const fetchData = async () => {
-        const counts = await fetchCounts(gene, 'cites')
-        // const counts = randomDataGenerator(gene)
-        setVizData(counts);
-      };
-
-      fetchData();
+      addLineChart(gene)
     }, [gene]);
 
-  let colorTheme = schemeTableau10;
-
-  if (!vizData) {
-    return <></>
-  }
-
   return (
-    <LineChart width={1000} height={400} data={vizData}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="date" tickFormatter={dateFormatter}/>
-      <YAxis/>
-      <Tooltip labelFormatter={dateFormatter}/>
-      <Legend />
-      <Line type="monotone" dataKey={gene} name={gene} stroke={colorTheme[0]} dot={false} />
-    </LineChart>
+    <div id="line-chart-container">
+    </div>
   )
+}
+
+async function addLineChart(gene: string) {
+  const trendData = await fetchTrendData(gene)
+
+  var viewsTrace = {
+    x: trendData.views.x,
+    y: trendData.views.y,
+    name: 'Views in Wikipedia',
+    type: 'scatter'
+  };
+
+  var citesTrace = {
+    x: trendData.cites.x,
+    y: trendData.cites.y,
+    name: 'Citations in PubMed',
+    type: 'scatter'
+  };
+
+  var data = [viewsTrace, citesTrace];
+
+  var layout = {
+    title: `Interest over time: ${gene}`
+  };
+
+  Plotly.newPlot('line-chart-container', data as any, layout);
 }
 
 /**
  * Request time-series data for Wikipedia page views or PubMed citations, and
- * transform that TSV data into a format for LineChart
+ * transform that TSV data into a format for Plotly.js line chart
  *
  * @param {String} gene: symbol of gene, e.g. "ACE2"
  * @param {String} source: either "views" or "cites"
- * @returns {Array} dateCounts
+ * @returns {Object} trace: arrays of X, Y values for a line in chart
  */
 async function fetchCounts(gene: string, source: string) {
   // E.g. data/views/ACE2.tsv
-  // gene = 'ACE2'
   const baseUrl = 'https://raw.githubusercontent.com/broadinstitute/gene-trends/main/gene_files/gene_files_datesorted/'
   const url = `${baseUrl}${gene}_sorted.tsv`
-  // const url = `gene_files/gene_files_datesorted/${gene}_sorted.tsv`
   const response = await fetch(url)
   const text = await response.text()
-  const dateCounts = []
+  const xArray: string[] = []
+  const yArray: number[] = []
+  const xyObject = {x: xArray, y: yArray}
   const rows = text.split('\n')
 
-  for (let i = 1; i < rows.length - 1; i++) {
+  for (let i = 0; i < rows.length; i++) {
     const row = rows[i].split('\t')
-    const [_, rawDate, count] = row
-    const date = new Date(rawDate)
-    const data = {date}
-    const countByGene: genericType = {}
-    countByGene[gene] = Number(count)
-    const dateCount = Object.assign({}, data, countByGene)
-    dateCounts.push(dateCount)
-
+    const date: string = row[1]
+    const count: string = row[2]
+    if (!count || isNaN(count as any)) continue // Skip e.g. header
+    xyObject.x.push(date) // Time, e.g. "2020-01-15"
+    xyObject.y.push(parseInt(count)) // Popularity / interest value -- an integer
   }
-
-  return dateCounts
+  return xyObject
 }
+
+async function fetchTrendData(gene: string) {
+  const viewsXY = await fetchCounts(gene, 'views')
+  const citesXY = await fetchCounts(gene, 'cites')
+  const trendData = {views: viewsXY, cites: citesXY}
+  return trendData
+}
+
+// document.addEventListener('DOMContentLoaded', function() {addLineChart(defaultGene)}, false);
+
