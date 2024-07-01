@@ -20,23 +20,24 @@ export default function TrendsTimeline({gene}: Props) {
 async function addLineChart(gene: string) {
   const trendData = await fetchTrendData(gene)
 
-  var viewsTrace = {
+  const viewsTrace = {
     x: trendData.views.x,
     y: trendData.views.y,
     name: 'Views in Wikipedia',
     type: 'scatter'
   };
 
-  var citesTrace = {
+  const citesTrace = {
     x: trendData.cites.x,
     y: trendData.cites.y,
     name: 'Citations in PubMed',
     type: 'scatter'
   };
 
-  var data = [viewsTrace, citesTrace];
+  // var data = [viewsTrace, citesTrace];
+  const data = [viewsTrace, citesTrace];
 
-  var layout = {
+  const layout = {
     title: `Interest over time for gene: ${gene}`
   };
 

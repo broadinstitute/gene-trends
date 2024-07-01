@@ -39,7 +39,8 @@ export default function TrendsDashboard() {
                 <Typography variant="h3" gutterBottom>
                     Gene Trends
                     <Typography variant="h5" sx={{color: 'grey', display: 'inline', marginLeft: '40px'}} gutterBottom>
-                    Explore scholarly and general interest in genes over time
+                    {/* Explore scholarly and general interest in genes over time */}
+                    Explore scholarly interest in genes over time
                     <br/>
                 </Typography>
                 </Typography>
