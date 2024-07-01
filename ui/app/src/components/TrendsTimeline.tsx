@@ -35,7 +35,7 @@ async function addLineChart(gene: string) {
   };
 
   // var data = [viewsTrace, citesTrace];
-  const data = [viewsTrace, citesTrace];
+  const data = [citesTrace];
 
   const layout = {
     title: `Interest over time for gene: ${gene}`
