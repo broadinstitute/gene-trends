@@ -38,7 +38,7 @@ async function addLineChart(gene: string) {
   const data = [citesTrace];
 
   const layout = {
-    title: `Interest over time for gene: ${gene}`
+    title: `PubMed citations for gene: ${gene}`
   };
 
   Plotly.newPlot('line-chart-container', data as any, layout);
